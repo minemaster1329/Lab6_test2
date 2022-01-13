@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, height=device-height"/>
+    <title>prezenty</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+</head>
+<body>
+    <div id="center_content">
+        <h1>Add presents:</h1>
+        <input type="text" id="present_name"/>
+        <br/>
+        <p><input type="button" onclick="addNewElement()" value="Dodaj"/><input type="button" onclick="sendList()" value="Wyślij"/></p>
+    </div>
+    <div id="presents">
+        <ul id="presents_list">
+
+        </ul>
+    </div>
+    <script type="text/javascript">
+        function sendList(){
+            activity.sendPresents(document.getElementById("presents_list").innerHTML);
+        }
+
+        function addNewElement(){
+            let element = document.getElementById("present_name").value;
+            if (element.length > 0){
+                if (activity.addNewElement(element)){
+                    let p_html_list = document.getElementById("presents_list");
+                    p_html_list.innerHTML += `<li>${element}</li>`;
+                }
+            }
+            else {
+                activity.showToast("Present name cannot be empty");
+            }
+        }
+    </script>
+</body>
+</html>
